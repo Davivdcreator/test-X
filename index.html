@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SunVibes - Ożywiamy Lokalne Miejsca Muzyką i Wideo</title>
+    <style>
+        :root {
+            --primary-color: #ff9900;
+            --secondary-color: #f5f5f5;
+            --dark-color: #333;
+            --light-color: #fff;
+            --accent-color: #ff6600;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        body {
+            background-color: var(--light-color);
+            color: var(--dark-color);
+            line-height: 1.6;
+        }
+        
+        header {
+            background-color: rgba(255, 255, 255, 0.9);
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            height: 50px;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 30px;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark-color);
+            font-weight: 500;
+            position: relative;
+            padding-bottom: 5px;
+        }
+        
+        .nav-links a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary-color);
+            bottom: 0;
+            left: 0;
+            transition: width 0.3s;
+        }
+        
+        .nav-links a:hover:after {
+            width: 100%;
+        }
+        
+        .mobile-menu {
+            display: none;
+            cursor: pointer;
+        }
+        
+        .bar {
+            width: 25px;
+            height: 3px;
+            background-color: var(--dark-color);
+            margin: 5px 0;
+            transition: 0.4s;
+        }
+        
+        .hero {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('ai-generated-8788584_1280.png');
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: var(--light-color);
+            padding-top: 70px;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: var(--light-color);
+            padding: 12px 30px;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+        
+        .btn:hover {
+            background-color: var(--accent-color);
+        }
+        
+        section {
+            padding: 5rem 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title h2:after {
+            content: '';
+            position: absolute;
+            width: 50%;
+            height: 3px;
+            background-color: var(--primary-color);
+            bottom: -10px;
+            left: 25%;
+        }
+        
+        .services {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .service-card {
+            background-color: var(--light-color);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .service-icon {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        
+        .why-us {
+            background-color: var(--secondary-color);
+        }
+        
+        .values {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        
+        .value-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .value-icon {
+            background-color: var(--primary-color);
+            color: var(--light-color);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 1rem;
+            flex-shrink: 0;
+        }
+        
+        .portfolio {
+            text-align: center;
+        }
+        
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .portfolio-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            height: 250px;
+        }
+        
+        .portfolio-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .portfolio-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            color: var(--light-color);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .portfolio-item:hover .portfolio-overlay {
+            opacity: 1;
+        }
+        
+        .portfolio-item:hover img {
+            transform: scale(1.1);
+        }
+        
+        .events {
+            background-color: var(--secondary-color);
+        }
+        
+        .event-list {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .event-item {
+            background-color: var(--light-color);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+        }
+        
+        .event-date {
+            background-color: var(--primary-color);
+            color: var(--light-color);
+            padding: 1rem;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: bold;
+            margin-right: 1.5rem;
+            flex-shrink: 0;
+            width: 80px;
+        }
+        
+        .social-feed {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        
+        .social-item {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .contact {
+            background-color: var(--secondary-color);
+        }
+        
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: var(--light-color);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        
+        textarea.form-control {
+            height: 150px;
+            resize: vertical;
+        }
+        
+        .btn-block {
+            width: 100%;
+        }
+        
+        footer {
+            background-color: var(--dark-color);
+            color: var(--light-color);
+            padding: 3rem 0;
+            text-align: center;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            margin: 2rem 0;
+        }
+        
+        .footer-links li {
+            margin: 0 15px;
+        }
+        
+        .footer-links a {
+            color: var(--light-color);
+            text-decoration: none;
+        }
+        
+        .social-links {
+            margin-bottom: 2rem;
+        }
+        
+        .social-links a {
+            color: var(--light-color);
+            font-size: 1.5rem;
+            margin: 0 10px;
+            display: inline-block;
+            transition: color 0.3s;
+        }
+        
+        .social-links a:hover {
+            color: var(--primary-color);
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                right: -100%;
+                top: 70px;
+                flex-direction: column;
+                background-color: var(--light-color);
+                width: 100%;
+                text-align: center;
+                transition: 0.3s;
+                box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
+                padding: 2rem 0;
+            }
+            
+            .nav-links.active {
+                right: 0;
+            }
+            
+            .nav-links li {
+                margin: 15px 0;
+            }
+            
+            .mobile-menu {
+                display: block;
+            }
+            
+            .mobile-menu.active .bar:nth-child(1) {
+                transform: rotate(-45deg) translate(-5px, 6px);
+            }
+            
+            .mobile-menu.active .bar:nth-child(2) {
+                opacity: 0;
+            }
+            
+            .mobile-menu.active .bar:nth-child(3) {
+                transform: rotate(45deg) translate(-5px, -6px);
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header>
+        <div class="container">
+            <nav>
+                <img src="ChatGPT Image Apr 28, 2025, 10_25_52 AM.png" alt="SunVibes Logo" class="logo">
+                <ul class="nav-links">
+                    <li><a href="#home">Strona Główna</a></li>
+                    <li><a href="#about">O Nas</a></li>
+                    <li><a href="#services">Co Robimy</a></li>
+                    <li><a href="#portfolio">Portfolio</a></li>
+                    <li><a href="#events">Wydarzenia</a></li>
+                    <li><a href="#business">Dla Biznesu</a></li>
+                    <li><a href="#contact">Kontakt</a></li>
+                </ul>
+                <div class="mobile-menu">
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container hero-content">
+            <h1>SunVibes: Ożywiamy Lokalne Miejsca Muzyką i Wideo</h1>
+            <p>Tworzymy wyjątkową atmosferę poprzez muzykę na żywo i profesjonalne kreacje wideo dla lokalnych biznesów.</p>
+            <a href="#portfolio" class="btn">Zobacz Nasze Realizacje</a>
+            <a href="#events" class="btn" style="margin-left: 10px;">Sprawdź Nadchodzące Występy</a>
+        </div>
+    </section>
+
+    <!-- What We Do Section -->
+    <section id="services">
+        <div class="container">
+            <div class="section-title">
+                <h2>Co Robimy</h2>
+                <p>Nasza działalność skupia się na dwóch głównych obszarach:</p>
+            </div>
+            <div class="services">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-video"></i>
+                    </div>
+                    <h3>Kreacja Wideo</h3>
+                    <p>Tworzymy profesjonalne materiały promocyjne, które pomogą wyróżnić Twój lokal w mediach społecznościowych.</p>
+                    <a href="#video-creation" class="btn" style="margin-top: 15px;">Dowiedz się więcej</a>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-guitar"></i>
+                    </div>
+                    <h3>Muzyka na Żywo</h3>
+                    <p>Zapewniamy wyjątkową atmosferę poprzez akustyczne występy dopasowane do charakteru Twojego biznesu.</p>
+                    <a href="#live-music" class="btn" style="margin-top: 15px;">Dowiedz się więcej</a>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Budowanie Społeczności</h3>
+                    <p>Pomagamy lokalnym miejscom tworzyć przestrzeń do integracji i budować społeczność wokół marki.</p>
+                    <a href="#community" class="btn" style="margin-top: 15px;">Dowiedz się więcej</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why SunVibes Section -->
+    <section id="why-us" class="why-us">
+        <div class="container">
+            <div class="section-title">
+                <h2>Dlaczego SunVibes?</h2>
+                <p>Co nas wyróżnia i jakie korzyści zyskasz ze współpracy z nami:</p>
+            </div>
+            <div class="values">
+                <div class="value-item">
+                    <div class="value-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div>
+                        <h3>Wyjątkowa Promocja</h3>
+                        <p>Nasze wideo kreacje docierają do tysięcy odbiorców, generując realny wzrost zainteresowania Twoim lokalem.</p>
+                    </div>
+                </div>
+                <div class="value-item">
+                    <div class="value-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <div>
+                        <h3>Ciepła Atmosfera</h3>
+                        <p>Występy na żywo tworzą niepowtarzalny klimat, który sprawia, że klienci chcą wracać.</p>
+                    </div>
+                </div>
+                <div class="value-item">
+                    <div class="value-icon">
+                        <i class="fas fa-handshake"></i>
+                    </div>
+                    <div>
+                        <h3>Lokalna Społeczność</h3>
+                        <p>Pomagamy budować wartościowe relacje z lokalną społecznością, tworząc miejsca z duszą.</p>
+                    </div>
+                </div>
+                <div class="value-item">
+                    <div class="value-icon">
+                        <i class="fas fa-sun"></i>
+                    </div>
+                    <div>
+                        <h3>Pozytywna Energia</h3>
+                        <p>Wnosimy pozytywne wibracje do każdego miejsca, z którym współpracujemy.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Latest Work Section -->
+    <section id="portfolio" class="portfolio">
+        <div class="container">
+            <div class="section-title">
+                <h2>Najnowsze Realizacje</h2>
+                <p>Zobacz wybrane projekty z naszego portfolio</p>
+            </div>
+            <div class="portfolio-grid">
+                <div class="portfolio-item">
+                    <img src="ai-generated-8788584_1280.png" alt="Portfolio 1">
+                    <div class="portfolio-overlay">
+                        <h3>Cafe Latte - Promocja Sezonu Letniego</h3>
+                        <p>Wideo promocyjne</p>
+                        <a href="#" class="btn">Zobacz Projekt</a>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <img src="ai-generated-8788584_1280.png" alt="Portfolio 2">
+                    <div class="portfolio-overlay">
+                        <h3>Wieczór Jazzowy w Wine Bar</h3>
+                        <p>Występ muzyczny</p>
+                        <a href="#" class="btn">Zobacz Projekt</a>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <img src="ai-generated-8788584_1280.png" alt="Portfolio 3">
+                    <div class="portfolio-overlay">
+                        <h3>Restauracja Marina - Nowe Menu</h3>
+                        <p>Wideo promocyjne</p>
+                        <a href="#" class="btn">Zobacz Projekt</a>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <img src="ai-generated-8788584_1280.png" alt="Portfolio 4">
+                    <div class="portfolio-overlay">
+                        <h3>Acoustic Night w Klubie Centrum</h3>
+                        <p>Występ muzyczny</p>
+                        <a href="#" class="btn">Zobacz Projekt</a>
+                    </div>
+                </div>
+            </div>
+            <a href="#full-portfolio" class="btn" style="margin-top: 30px;">Zobacz Wszystkie Projekty</a>
+        </div>
+    </section>
+
+    <!-- Upcoming Events Section -->
+    <section id="events" class="events">
+        <div class="container">
+            <div class="section-title">
+                <h2>Nadchodzące Wydarzenia</h2>
+                <p>Gdzie możesz nas posłuchać w najbliższym czasie</p>
+            </div>
+            <div class="event-list">
+                <div class="event-item">
+                    <div class="event-date">
+                        <div class="month">MAJ</div>
+                        <div class="day">12</div>
+                    </div>
+                    <div class="event-details">
+                        <h3>Cafe Słoneczna</h3>
+                        <p><i class="fas fa-map-marker-alt"></i> ul. Kwiatowa 15, Warszawa</p>
+                        <p><i class="fas fa-clock"></i> 18:00 - 21:00</p>
+                    </div>
+                </div>
+                <div class="event-item">
+                    <div class="event-date">
+                        <div class="month">MAJ</div>
+                        <div class="day">19</div>
+                    </div>
+                    <div class="event-details">
+                        <h3>Wine & Music Bar</h3>
+                        <p><i class="fas fa-map-marker-alt"></i> ul. Winna 7, Warszawa</p>
+                        <p><i class="fas fa-clock"></i> 19:00 - 22:00</p>
+                    </div>
+                </div>
+                <div class="event-item">
+                    <div class="event-date">
+                        <div class="month">MAJ</div>
+                        <div class="day">26</div>
+                    </div>
+                    <div class="event-details">
+                        <h3>Restauracja Przystań</h3>
+                        <p><i class="fas fa-map-marker-alt"></i> ul. Nadrzeczna 3, Warszawa</p>
+                        <p><i class="fas fa-clock"></i> 18:30 - 21:30</p>
+                    </div>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 30px;">
+                <a href="#all-events" class="btn">Zobacz Wszystkie Wydarzenia</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Media Feed Section -->
+    <section id="social">
+        <div class="container">
+            <div class="section-title">
+                <h2>Śledź Nas</h2>
+                <p>Bądź na bieżąco z naszymi działaniami w mediach społecznościowych</p>
+            </div>
+            <div class="social-feed">
+                <div class="social-item">
+                    <img src="ai-generated-8788584_1280.png" alt="Instagram Post 1">
+                </div>
+                <div class="social-item">
+                    <img src="ai-generated-8788584_1280.png" alt="Instagram Post 2">
+                </div>
+                <div class="social-item">
+                    <img src="ai-generated-8788584_1280.png" alt="Instagram Post 3">
+                </div>
+                <div class="social-item">
+                    <img src="ai-generated-8788584_1280.png" alt="Instagram Post 4">
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 30px;">
+                <a href="https://instagram.com/sunvibes" target="_blank" class="btn"><i class="fab fa-instagram"></i> Obserwuj na Instagramie</a>
+                <a href="https://tiktok.com/@sunvibes" target="_blank" class="btn" style="margin-left: 10px;"><i class="fab fa-tiktok"></i> Obserwuj na TikToku</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Us Section -->
+    <section id="about">
+        <div class="container">
+            <div class="section-title">
+                <h2>O Nas</h2>
+                <p>Poznaj historię i misję projektu SunVibes</p>
+            </div>
+            <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 3rem;">
+                <div style="flex: 1; min-width: 300px;">
+                    <img src="ai-generated-8788584_1280.png" alt="SunVibes Team" style="width: 100%; border-radius: 10px;">
+                </div>
+                <div style="flex: 1; min-width: 300px;">
+                    <h3>Nasza Misja i Pasja</h3>
+                    <p>SunVibes powstało z miłości do muzyki i tworzenia. Nasza misja to ożywianie lokalnych miejsc pozytywną energią poprzez muzykę na żywo oraz kreatywne wideo, które budują unikatową atmosferę i więź z odbiorcami.</p>
+                    <p>Wierzymy, że lokalne biznesy zasługują na profesjonalną promocję, a ludzie na miejsca z duszą, gdzie mogą cieszyć się muzyką i dobrą atmosferą.</p>
+                    
+                    <h3 style="margin-top: 2rem;">Kto za Tym Stoi?</h3>
+                    <p>Za projektem SunVibes stoi zespół pasjonatów muzyki i sztuki wizualnej. Łączymy umiejętności muzyczne, produkcję wideo oraz wiedzę marketingową, aby tworzyć wyjątkowe doświadczenia zarówno dla klientów, jak i dla szerszej publiczności.</p>
+                    
+                    <h3 style="margin-top: 2rem;">Nasze Wartości</h3>
+                    <p>Autentyczność, kreatywność, lokalność i pozytywna energia – to wartości, które przyświecają nam w każdym projekcie. Stawiamy na jakość, profesjonalizm i budowanie długotrwałych relacji z naszymi partnerami.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- For Business Section -->
+    <section id="business" style="background-color: var(--secondary-color);">
+        <div class="container">
+            <div class="section-title">
+                <h2>Dla Biznesu</h2>
+                <p>Jak możemy wspólnie ożywić Twój lokal?</p>
+            </div>
+            <div style="display: flex; flex-wrap: wrap; gap: 2rem;">
+                <div style="flex: 1; min-width: 300px; background-color: var(--light-color); padding: 2rem; border-radius: 10px; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);">
+                    <h3>Kreacja Wideo dla Marek</h3>
+                    <p>Tworzymy profesjonalne materiały promocyjne, które wyróżnią Twój lokal w mediach społecznościowych. Nasze wideo to połączenie estetyki, emocji i skutecznego przekazu marketingowego.</p>
+                    
+                    <h4 style="margin-top: 1.5rem;">Co oferujemy:</h4>
+                    <ul style="list-style-type: none; padding-left: 0;">
+                        <li style="margin-bottom: 0.5rem;"><i class="fas fa-check" style="color: var(--primary-color); margin-right: 10px;"></i> Krótkie wideo promocyjne (15-60s)</li>
+                        <li style="margin-bottom: 0.5rem;"><i class="fas fa-check" style="color: var(--primary-color); margin-right: 10px;"></i> Materiały dedykowane do social media</li>
+                        <li style="margin-bottom: 0.5rem;"><i class="fas fa-check" style="color: var(--primary-color); margin-right: 10px;"></i> Prezentacje nowego menu/oferty</li>
+                        <li style="margin-bottom: 0.5rem;"><i class="fas fa-check" style="color: var(--primary-color); margin-right: 10px;"></i> Wideo z wydarzeń specjalnych</li>
+                    </ul>
+                    
+                    <a href="#video-contact" class="btn" style="margin-top: 1.5rem;">Zapytaj o Wideo</a>
+                </div>
+                <div style="flex: 1; min-width: 300px; background-color: var(--light-color); padding: 2rem; border-radius: 10px; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);">
+                    <h3>Muzyka na Żywo / Występy</h3>
+                    <p>Oferujemy występy muzyczne dopasowane do charakteru i klimatu Twojego lokalu. Tworzymy wyjątkową atmosferę, która przyciąga gości i sprawia, że chcą wracać.</p>
+                    
+                    <h4 style="margin-top: 1.5rem;">Rodzaje występów:</h4>
+                    <ul style="list-style-type: none; padding-left: 0;">
+                        <li style="margin-bottom: 0.5rem;"><i class="fas fa-check" style="color: var(--primary-color); margin-right: 10px;"></i> Akustyczne wieczory muzyczne</li>
+                        <li style="margin-bottom: 0.5rem;"><i class="fas fa-check" style="color: var(--primary-color); margin-right: 10px;"></i> Background music podczas brun
